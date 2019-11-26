@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from "../../environments/environment";
+import { DespiertaService } from '../despierta.service';
+import { ServerMessage } from '../models/serverMessage';
 
 @Component({
   selector: 'app-footer-widget',
@@ -10,9 +12,20 @@ export class FooterWidgetComponent implements OnInit {
 
   env = environment;
 
-  constructor() { }
+  constructor(private despiertaServicio: DespiertaService) {
+
+   }
 
   ngOnInit() {
   }
 
+  wakeUpServers() {
+    this.despiertaServicio.despiertaServicio().subscribe((serverMessage: ServerMessage) => {
+      if (serverMessage) {
+        console.log("Server Response: " + serverMessage.message);
+      } else {
+          console.log("algo malo sucedio");
+      }
+    });
+  }
 }
