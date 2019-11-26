@@ -1,4 +1,15 @@
-<div id="footerDiv">
-ambiente: {{ env.name }}<br/>
-Desarrollado por IBM Watson.
+<div id="footerDiv" style="width: 900px">
+    <div style="float: left; width: 85%">
+        ambiente: {{ env.name }}<br/>
+        Desarrollado por IBM Watson.
+    </div>
+    <div style="float: left">
+        <button mat-raised-button="" 
+            class="mat-raised-button mat-button-base" type="button"
+            (click)="wakeUpServers()" style="width: 110px">
+            <span class="mat-button-wrapper">Despierta</span>
+            <div class="mat-button-ripple mat-ripple" matripple=""></div>
+            <div class="mat-button-focus-overlay"></div>
+        </button>
+    </div>
 </div>

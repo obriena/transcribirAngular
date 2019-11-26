@@ -1,9 +1,9 @@
 export const environment = {
   production: true,
   name: "Production",
-  loginService: "https://transcribir.us-south.cf.appdomain.cloud/authenticate",
-  registrationService: "https://transcribir.us-south.cf.appdomain.cloud/register",
-  fileUploadService: "https://transcribir.us-south.cf.appdomain.cloud/fileUpload",
-  mediaService: "https://transcribir.us-south.cf.appdomain.cloud/media/findAllForUser/",
-  playMediaService: "https://transcribir.us-south.cf.appdomain.cloud/media/playFileById/"
+  loginService: "https://transcribirservices.herokuapp.com/transcribir/authenticate",
+  registrationService: "https://transcribirservices.herokuapp.com/transcribir/register",
+  fileUploadService: "https://transcribirservices.herokuapp.com/transcribir/fileUpload",
+  mediaService: "https://transcribirservices.herokuapp.com/transcribir/media/findAllForUser/",
+  playMediaService: "https://transcribirservices.herokuapp.com/transcribir/media/playFileById/"
 };

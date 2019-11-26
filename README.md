@@ -54,3 +54,20 @@ Start the server with production configuration:
 ng serve --configuration=production
 ```
 Production is for deploying into the prod environment.
+
+### Add Component
+
+### Add Service
+ng generate service despierta
+
+### Docker 
+```
+docker build -t  .
+docker run -dit --name my-running-app -p 8080:80 my-apache2
+```
+
+ heroku container:push web -a transcribir
+ heroku container:release web -a transcribir
+ heroku logs --tail -a transcribir
+ heroku open -a transcribir
+ 
