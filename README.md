@@ -1,6 +1,6 @@
-# Transcribir
+# Transcribir Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.5.
+Esto proyect fue generated con [Angular CLI](https://github.com/angular/angular-cli) version 7.3.5.
 
 Extra commands used to setup this environment:
 ```
@@ -65,9 +65,12 @@ ng generate service despierta
 docker build -t  .
 docker run -dit --name my-running-app -p 8080:80 my-apache2
 ```
-
+### Heroku
+Heroku solo funciona después de instal las herramientas de línea de comando.  
+```
+ heroku login
  heroku container:push web -a transcribir
  heroku container:release web -a transcribir
  heroku logs --tail -a transcribir
  heroku open -a transcribir
- 
+ ```
