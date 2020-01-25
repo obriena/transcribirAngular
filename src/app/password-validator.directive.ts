@@ -1,9 +1,11 @@
 //import { Directive } from '@angular/core';
 import { ValidatorFn, FormGroup, ValidationErrors } from '@angular/forms';
 
-// @Directive({
-//   selector: '[appPasswordValidator]'
-// })
+/*
+@Directive({
+   selector: '[appPasswordValidator]'
+})
+*/
 
 export const passwordValidator: ValidatorFn = (control:FormGroup):
   ValidationErrors | null => {
