@@ -11,7 +11,7 @@ Error: StaticInjectorError(DynamicTestModule)[CaptureAudioWidgetComponent -> For
 */
 import { FormsModule } from '@angular/forms'
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 
 
@@ -46,6 +46,9 @@ describe('CaptureAudioWidgetComponent', () => {
       ],
       
       declarations: [ CaptureAudioWidgetComponent ],
+      providers: [
+        {provide: HttpClient}
+      ],
       schemas:[NO_ERRORS_SCHEMA]
     })
     .compileComponents();
