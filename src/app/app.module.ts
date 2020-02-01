@@ -14,7 +14,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input"
 import { MatSelectModule } from "@angular/material/select";
 import { MatGridListModule } from "@angular/material/grid-list";
-import { ReactiveFormsModule } from "@angular/forms";
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 
 import { LoginWidgetComponent } from './login-widget/login-widget.component';
 import { HeaderWidgetComponent } from './header-widget/header-widget.component';
@@ -45,6 +45,8 @@ import { VgControlsModule } from "videogular2/compiled/controls";
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
     HttpClientModule,
     MatCardModule,
     MatButtonModule,
@@ -59,7 +61,7 @@ import { VgControlsModule } from "videogular2/compiled/controls";
     VgCoreModule,
     VgControlsModule
   ],
-  providers: [],
+  providers: [ HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

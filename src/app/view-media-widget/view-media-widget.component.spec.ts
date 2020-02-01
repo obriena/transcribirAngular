@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewMediaWidgetComponent } from './view-media-widget.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('ViewMediaWidgetComponent', () => {
   let component: ViewMediaWidgetComponent;
@@ -8,7 +9,8 @@ describe('ViewMediaWidgetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewMediaWidgetComponent ]
+      declarations: [ ViewMediaWidgetComponent ],
+      schemas:[NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));

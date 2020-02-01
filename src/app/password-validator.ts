@@ -1,11 +1,4 @@
-//import { Directive } from '@angular/core';
 import { ValidatorFn, FormGroup, ValidationErrors } from '@angular/forms';
-
-/*
-@Directive({
-   selector: '[appPasswordValidator]'
-})
-*/
 
 export const passwordValidator: ValidatorFn = (control:FormGroup):
   ValidationErrors | null => {
@@ -19,7 +12,7 @@ export const passwordValidator: ValidatorFn = (control:FormGroup):
 
     if (password1 != null && password2 != null) {
       if (password1 != password2) {
-        console.log("Passwords do not match");
+        console.log("Las contraseñas no coinciden");
         errors = { 'passwordMismatch': true };
       } else {
         console.log("Passwords do match");
@@ -27,5 +20,4 @@ export const passwordValidator: ValidatorFn = (control:FormGroup):
     }
     console.log(errors);
     return errors;
-    //return password1.value == password2.value ? { 'passwordMismatch': true } : { 'passwordMismatch': false };
   }; 

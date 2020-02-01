@@ -5,7 +5,7 @@ import { Credentials } from '../models/credentials';
 import { User } from "../models/user";
 import { ServerMessage } from "../models/serverMessage";
 import { RegistrationService } from "../registration.service";
-import { passwordValidator } from '../password-validator.directive';
+import { passwordValidator } from '../password-validator';
 
 @Component({
   selector: 'app-registration-widget',
