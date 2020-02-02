@@ -74,3 +74,13 @@ Heroku solo funciona después de instal las herramientas de línea de comando.
  heroku logs --tail -a transcribir
  heroku open -a transcribir
  ```
+
+ ### Helpful Hints
+ When executing **ng serve** you get an error that looks like this:
+ ```
+ Could not find module "@angular-devkit/build-angular" from "/home/aaron/Desarrollo/Codigo/transcribirAngular".
+ ```
+ Simlpy run this command:
+ ```
+ npm install
+ ```

@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderWidgetComponent } from './header-widget.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('HeaderWidgetComponent', () => {
   let component: HeaderWidgetComponent;
@@ -8,7 +9,8 @@ describe('HeaderWidgetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderWidgetComponent ]
+      declarations: [ HeaderWidgetComponent ],
+      schemas:[NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));

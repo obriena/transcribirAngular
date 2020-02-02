@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RightWidgetComponent } from './right-widget.component';
+import { HttpClient } from '@angular/common/http';
 
 describe('RightWidgetComponent', () => {
   let component: RightWidgetComponent;
@@ -8,7 +9,10 @@ describe('RightWidgetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RightWidgetComponent ]
+      declarations: [ RightWidgetComponent ],
+      providers: [
+        {provide: HttpClient}
+      ]
     })
     .compileComponents();
   }));
