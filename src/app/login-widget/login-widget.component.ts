@@ -6,6 +6,7 @@ import { Credentials } from '../models/credentials';
 import { ServerMessage } from "../models/serverMessage";
 import { User } from '../models/user';
 import { UserDataStoreService } from "../user-data-store.service";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-login-widget',
@@ -22,7 +23,8 @@ export class LoginWidgetComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, 
               private router: Router,
               private loginService: LoginService,
-              private userDataStore: UserDataStoreService) { 
+              private userDataStore: UserDataStoreService,
+              private spinner: NgxSpinnerService ) { 
 
     this.userForm = this.formBuilder.group({
       userId: new FormControl(''),
@@ -35,12 +37,14 @@ export class LoginWidgetComponent implements OnInit {
   }
 
   login() {
+    this.spinner.show();
     let credentials: Credentials;
     credentials = new Credentials();
     credentials.userId = this.userForm.get('userId').value;
     credentials.password = this.userForm.get('password').value;
     
     this.loginService.validateUser(credentials).subscribe((serverMessage: ServerMessage) => {
+      this.spinner.hide();
       if (serverMessage.status) {
         console.log("Server Response: " + serverMessage.message);
         let resp = JSON.parse(serverMessage.message);

@@ -9,6 +9,7 @@ import { UserDataStoreService } from '../user-data-store.service';
 import { Router } from '@angular/router';
 import { MediaDataStoreService } from '../media-data-store.service';
 import { Media } from '../models/media';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-capture-audio-widget',
@@ -45,7 +46,8 @@ export class CaptureAudioWidgetComponent implements OnInit, AfterViewInit {
               private httpClient: HttpClient, 
               private userDataStore: UserDataStoreService,
               private router: Router,
-              private mediaDataService: MediaDataStoreService) {
+              private mediaDataService: MediaDataStoreService,
+              private spinner: NgxSpinnerService) {
     console.log("Languages: " + this.languages.length);
     this.fileUploadUrl = environment.fileUploadService;
   }
@@ -85,6 +87,7 @@ export class CaptureAudioWidgetComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
+    this.spinner.show();
     const formData = new FormData();
     if (this.loggedInUser) {
       let creds: Credentials = this.loggedInUser.credentials;    
@@ -98,6 +101,7 @@ export class CaptureAudioWidgetComponent implements OnInit, AfterViewInit {
     this.httpClient.post<any>(this.fileUploadUrl, formData).subscribe(
       
       (res) => {
+        this.spinner.hide()
         console.log(res);
         if (res['status']){
           //TODO: broadcast to the mediaDataStore that we have a new entry
