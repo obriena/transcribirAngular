@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { HttpClientModule } from "@angular/common/http";
 
@@ -28,6 +28,9 @@ import { ViewMediaWidgetComponent } from './view-media-widget/view-media-widget.
 
 import { VgCoreModule } from "videogular2/compiled/core";
 import { VgControlsModule } from "videogular2/compiled/controls";
+
+import { NgxSpinnerModule } from "ngx-spinner";
+
 
 @NgModule({
   declarations: [
@@ -59,9 +62,11 @@ import { VgControlsModule } from "videogular2/compiled/controls";
     FlexLayoutModule,
     BrowserAnimationsModule,
     VgCoreModule,
-    VgControlsModule
+    VgControlsModule,
+    NgxSpinnerModule
   ],
   providers: [ HttpClientModule],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

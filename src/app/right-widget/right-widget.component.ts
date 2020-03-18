@@ -6,6 +6,7 @@ import { Media } from '../models/media';
 import { RetrieveMediaService } from '../retrieve-media.service';
 import { ServerMessage } from '../models/serverMessage';
 import { MediaDataStoreService } from '../media-data-store.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-right-widget',
@@ -21,22 +22,30 @@ export class RightWidgetComponent implements OnInit {
   constructor(private httpClient: HttpClient, 
               private userDataStore: UserDataStoreService,
               private retrieveMediaService: RetrieveMediaService,
-              private mediaDataService: MediaDataStoreService) {
+              private mediaDataService: MediaDataStoreService,
+              private spinner: NgxSpinnerService) {
 
   }
 
   ngOnInit() {
     let userSubject = this.userDataStore.users;
+    
     userSubject.subscribe((usersData: User[]) =>{
+      
       if (usersData.length > 0){
+        this.spinner.show();
         this.loggedInUser = usersData[0];
         console.log("Right Component user first name: " +  this.loggedInUser.firstName);
 
         this.retrieveMediaService.retrieveMediaForUser(this.loggedInUser.credentials.userId).subscribe((serverMessage: ServerMessage) => {
+          this.spinner.hide();
           if (serverMessage.status) {
             this.message = serverMessage.message;
             this.mediaFiles = serverMessage.payload;
           }
+        }, e => {
+          this.spinner.hide()
+          window.alert(e)
         });
       }
     });
