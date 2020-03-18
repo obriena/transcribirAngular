@@ -43,6 +43,9 @@ export class RightWidgetComponent implements OnInit {
             this.message = serverMessage.message;
             this.mediaFiles = serverMessage.payload;
           }
+        }, e => {
+          this.spinner.hide()
+          window.alert(e)
         });
       }
     });

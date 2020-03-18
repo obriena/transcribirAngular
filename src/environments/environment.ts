@@ -9,8 +9,7 @@ export const environment = {
   registrationService: "http://localhost:9080/register",
   fileUploadService: "http://localhost:9080/fileUpload",
   mediaService: "http://localhost:9080/media/findAllForUser/",
-  playMediaService: "http://localhost:9080/media/playFileById/",
-  retrieveTranscriptService: "http://localhost:9080/media/retrieveTranscript/"
+  playMediaService: "http://localhost:9080/media/playFileById/"
 };
 
 

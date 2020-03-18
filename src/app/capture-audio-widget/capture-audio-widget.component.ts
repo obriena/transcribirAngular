@@ -118,9 +118,10 @@ export class CaptureAudioWidgetComponent implements OnInit, AfterViewInit {
           }
         }
         
-      },
-      (err) => console.log(err)
-    );
+      },  e => {
+        this.spinner.hide()
+        window.alert(e)
+      });
 
     /*
     results should look something like this:

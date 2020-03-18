@@ -14,7 +14,7 @@ import { ServerMessage } from "./models/serverMessage";
 })
 export class DespiertaService {
   despiertaUrl: string;
-
+  
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json'
@@ -27,6 +27,7 @@ export class DespiertaService {
 
   despiertaServicio(): Observable<ServerMessage>{
     console.log("Despierta la servidora");
+
     return this.http.get<ServerMessage>(this.despiertaUrl, this.httpOptions).pipe(
       retry(3),
       catchError(this.handleError)
@@ -34,6 +35,7 @@ export class DespiertaService {
   }
 
   private handleError(error: HttpErrorResponse){
+
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);

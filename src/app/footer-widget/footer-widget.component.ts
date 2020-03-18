@@ -30,13 +30,22 @@ export class FooterWidgetComponent implements OnInit {
       console.log("Spinner is not null")
     }
     this.spinner.show();
-    this.despiertaServicio.despiertaServicio().subscribe((serverMessage: ServerMessage) => {
-      if (serverMessage) {
-        console.log("Server Response: " + serverMessage.message);
-      } else {
-          console.log("algo malo sucedio");
-      }
+    try {
+      this.despiertaServicio.despiertaServicio().subscribe((serverMessage: ServerMessage) => {
+        if (serverMessage) {
+          console.log("Server Response: " + serverMessage.message);
+        } else {
+            console.log("algo malo sucedio");
+        }
+        this.spinner.hide();
+      }, e => {
+        this.spinner.hide()
+        window.alert(e)
+      });
+    }
+    catch (error){
+      window.alert(error);
       this.spinner.hide();
-    });
+    }
   }
 }

@@ -67,6 +67,9 @@ export class LoginWidgetComponent implements OnInit {
       } else {
         window.alert(serverMessage.message);
       }
+    }, e => {
+      this.spinner.hide()
+      window.alert(e)
     });
   }
 
