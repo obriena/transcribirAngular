@@ -62,13 +62,16 @@ ng generate service despierta
 
 ### Docker 
 ```
-docker build -t  .
+docker build -t flyingspheres/transcribir:0.2 ..
+docker run -it -p 8080:80 -d flyingspheres/transcribir:0.2
 docker run -dit --name my-running-app -p 8080:80 my-apache2
 ```
 ### Heroku
 Heroku solo funciona después de instal las herramientas de línea de comando.  
 ```
+ ng build --prod
  heroku login
+ heroku container:login
  heroku container:push web -a transcribir
  heroku container:release web -a transcribir
  heroku logs --tail -a transcribir
