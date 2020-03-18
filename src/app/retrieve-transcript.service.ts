@@ -10,25 +10,24 @@ import { retry, catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class RetrieveMediaService {
-  mediaRetrievalUrl: string;
+export class RetrieveTranscriptService {
+  transcriptRetrievalUrl: string;
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type':  'application/json'
+      'Content-Type': 'application/json'
     })
   };
+  constructor(private http: HttpClient) {
+    this.transcriptRetrievalUrl = environment.retrieveTranscriptService;
+   }
 
-  constructor(private http: HttpClient) { 
-    this.mediaRetrievalUrl = environment.mediaService;
-  }
+   retrieveTranscriptForUser(userName: string, mediaId: string){
+    console.log("Retrieve transcript service" );
+    let transcriptUrl = this.transcriptRetrievalUrl + mediaId + "/" + userName;
+    return this.http.get<ServerMessage> (transcriptUrl, this.httpOptions).pipe(retry(3), catchError(this.handleError));
+   }
 
-  retrieveMediaForUser(userName: string): Observable<ServerMessage> {
-    console.log("Retrieve Media Service" );
-    let userMediaUrl = this.mediaRetrievalUrl + userName;
-    return this.http.get<ServerMessage> (userMediaUrl, this.httpOptions).pipe(retry(3), catchError(this.handleError));
-  }
-
-  private handleError(error:HttpErrorResponse) {
+   private handleError(error:HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
@@ -43,4 +42,5 @@ export class RetrieveMediaService {
     return throwError(
       'Something bad happened; please try again later.');
   };
+  
 }

@@ -113,6 +113,7 @@ export class CaptureAudioWidgetComponent implements OnInit, AfterViewInit {
           
           for (let index = 0; index < transJson["results"][0]["alternatives"].length; index++) {
             let alt = transJson["results"][0]["alternatives"][index];
+            this.transcription = "";
             this.transcription = this.transcription.concat("Confianza: " + alt["confidence"],"\n", alt["transcript"]);
           }
         }
