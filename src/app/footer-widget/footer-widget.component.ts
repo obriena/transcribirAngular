@@ -23,29 +23,17 @@ export class FooterWidgetComponent implements OnInit {
   ngAfterViewInit(): void {}
 
   wakeUpServers() {
-    if (this.spinner == null) {
-      console.log("spinner is null")
-    }
-    else {
-      console.log("Spinner is not null")
-    }
     this.spinner.show();
-    try {
-      this.despiertaServicio.despiertaServicio().subscribe((serverMessage: ServerMessage) => {
-        if (serverMessage) {
-          console.log("Server Response: " + serverMessage.message);
-        } else {
-            console.log("algo malo sucedio");
-        }
-        this.spinner.hide();
-      }, e => {
-        this.spinner.hide()
-        window.alert(e)
-      });
-    }
-    catch (error){
-      window.alert(error);
+    this.despiertaServicio.despiertaServicio().subscribe((serverMessage: ServerMessage) => {
+      if (serverMessage) {
+        console.log("Server Response: " + serverMessage.message);
+      } else {
+          console.log("algo malo sucedio");
+      }
       this.spinner.hide();
-    }
+    }, e => {
+      this.spinner.hide()
+      window.alert(e)
+    });
   }
 }

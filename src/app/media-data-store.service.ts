@@ -28,10 +28,25 @@ export class MediaDataStoreService {
     this.dataStore.mediaFiles.push(aMediaFile);
     this._mediaFiles.next(Object.assign({}, this.dataStore).mediaFiles);
   }
+  removeMediaFile(aMediaFile: Media) {
+    console.log("publishing removal of media file");
+
+    let _media = this.dataStore.mediaFiles
+    _media.forEach(element => {
+      console.log(element.mediaId + " " + element.fileName + " removed")
+    });
+    this._mediaFiles.next(Object.assign({}, this.dataStore).mediaFiles);
+  }
 
   selectMediaFile(selectedMediaFile: Media){
     console.log("media file selected: "+ selectedMediaFile.fileName);
     this.selectedDataStore.mediaFiles.push(selectedMediaFile);
     this._selectedMediaFiles.next(Object.assign({}, this.selectedDataStore).mediaFiles);
+  }
+
+  clearSelectedMediaFile(){
+    console.log("Eliminando el archivo selccionado")
+    this.selectedDataStore.mediaFiles.pop();
+  
   }
 }

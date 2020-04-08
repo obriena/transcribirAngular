@@ -18,6 +18,7 @@ export class RightWidgetComponent implements OnInit {
   loggedInUser: User;
   mediaFiles: Media[] = [];
   message: string = "";
+  hasBeenSelected: boolean = false;
 
   constructor(private httpClient: HttpClient, 
               private userDataStore: UserDataStoreService,
@@ -28,15 +29,38 @@ export class RightWidgetComponent implements OnInit {
   }
 
   ngOnInit() {
-    let userSubject = this.userDataStore.users;
     
+    this.actualizorTranscripciones();
+
+    let mediaSubject = this.mediaDataService.mediaFiles;
+    mediaSubject.subscribe((newFiles: Media[]) => {
+      console.log("RightWidget: Recieved message from mediaDataService.")
+      if (newFiles.length > 0) {
+        let newMedia: Media = newFiles[newFiles.length - 1];
+        this.mediaFiles.push(newMedia);
+        this.message = "Retrieved " + this.mediaFiles.length + " items";
+      } 
+      if (this.hasBeenSelected) {
+        console.log("algo fue seleccionado")
+        if (newFiles.length == 0) {
+          console.log("Nada seleccionado")
+          this.hasBeenSelected = false;
+          this.actualizorTranscripciones();
+        }
+      }
+    });
+
+
+  }
+  actualizorTranscripciones () {
+
+    let userSubject = this.userDataStore.users;
     userSubject.subscribe((usersData: User[]) =>{
       
       if (usersData.length > 0){
         this.spinner.show();
         this.loggedInUser = usersData[0];
         console.log("Right Component user first name: " +  this.loggedInUser.firstName);
-
         this.retrieveMediaService.retrieveMediaForUser(this.loggedInUser.credentials.userId).subscribe((serverMessage: ServerMessage) => {
           this.spinner.hide();
           if (serverMessage.status) {
@@ -49,22 +73,12 @@ export class RightWidgetComponent implements OnInit {
         });
       }
     });
-
-
-    let mediaSubject = this.mediaDataService.mediaFiles;
-    mediaSubject.subscribe((newFiles: Media[]) => {
-      if (newFiles.length > 0) {
-        let newMedia: Media = newFiles[newFiles.length - 1];
-        this.mediaFiles.push(newMedia);
-        this.message = "Retrieved " + this.mediaFiles.length + " items";
-      }
-    });
-
-
   }
-    onSelect(media: Media): void {
-      console.log("Setting Selected Media");
-      this.mediaDataService.selectMediaFile(media); 
-    }
+
+  onSelect(media: Media): void {
+    console.log("Setting Selected Media");
+    this.hasBeenSelected = true;
+    this.mediaDataService.selectMediaFile(media); 
+  }
 
 }

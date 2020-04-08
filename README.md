@@ -63,7 +63,7 @@ ng generate service despierta
 ### Docker 
 ```
 docker build -t flyingspheres/transcribir:0.2 ..
-docker run -it -p 8080:80 -d flyingspheres/transcribir:0.2
+docker run -p 8080:80 -e PORT=80 flyingspheres/transcribir:0.2
 docker run -dit --name my-running-app -p 8080:80 my-apache2
 ```
 ### Heroku

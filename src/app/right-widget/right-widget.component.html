@@ -1,5 +1,14 @@
 <div *ngIf="loggedInUser">
-    <div>Transcripciones</div>
+    <div>    
+      <button mat-raised-button="" 
+          class="mat-raised-button mat-button-base" type="button"
+          (click)="actualizorTranscripciones()" style="width: 140px"
+          tabindex="0">
+          <span class="mat-button-wrapper">Transcripciones</span>
+          <div class="mat-button-ripple mat-ripple" matripple=""></div>
+          <div class="mat-button-focus-overlay"></div>
+    </button>
+  </div>
     <ul>
       <li *ngFor="let media of mediaFiles" (click)="onSelect(media)">
         {{media.fileName}}

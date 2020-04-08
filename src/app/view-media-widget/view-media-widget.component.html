@@ -32,7 +32,32 @@
       </vg-player>
     
       <br/>
-      Link: <a href="{{mp3Link}}">Right Click to Download</a>
+      <ul class="menu">
+        <li class="menuli">
+          Link: <a href="{{mp3Link}}">Right Click to Download</a>
+        </li>
+        <li class="menuli">
+          <button mat-raised-button="" 
+                class="mat-raised-button mat-button-base" type="button"
+                (click)="deleteMedia()" style="width: 120px"
+                tabindex="0">
+                <span class="mat-button-wrapper">Delete</span>
+                <div class="mat-button-ripple mat-ripple" matripple=""></div>
+                <div class="mat-button-focus-overlay"></div>
+          </button>
+        </li>
+        <li class="menuli">
+          <button mat-raised-button="" 
+                class="mat-raised-button mat-button-base" type="button"
+                (click)="goToUploadFile()" style="width: 120px"
+                tabindex="0">
+                <span class="mat-button-wrapper">Back</span>
+                <div class="mat-button-ripple mat-ripple" matripple=""></div>
+                <div class="mat-button-focus-overlay"></div>
+          </button>
+        </li>
+      </ul>
+      
       <br/>
   </div>
   <div id="transcript">

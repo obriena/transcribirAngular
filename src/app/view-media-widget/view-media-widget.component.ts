@@ -1,9 +1,12 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MediaDataStoreService } from '../media-data-store.service';
+import { MediaUpdateService } from '../media-update.service';
 import { Media } from '../models/media';
 import { Router } from '@angular/router';
 import { environment } from "../../environments/environment";
+import { NgxSpinnerService } from "ngx-spinner";
+import { ServerMessage } from '../models/serverMessage';
 
 
 @Component({
@@ -19,7 +22,9 @@ export class ViewMediaWidgetComponent implements OnInit, AfterViewInit{
   private showPlayer: boolean = false;
   constructor(private httpClient: HttpClient,
               private mediaDataService: MediaDataStoreService,
-              private router: Router) {
+              private updateMediaService: MediaUpdateService,
+              private router: Router,
+              private spinner: NgxSpinnerService) {
     
   }
 
@@ -57,4 +62,26 @@ export class ViewMediaWidgetComponent implements OnInit, AfterViewInit{
     }
   }
 
+  goToUploadFile(){
+    this.mediaDataService.clearSelectedMediaFile();
+    this.router.navigate(['/captureaudio']);
+  }
+
+  deleteMedia() {
+    this.spinner.show();
+    this.updateMediaService.eliminarMediaParaUsuarioConMediaId(this.selectedMedia.userId, this.selectedMedia.mediaId).subscribe((serverMessage: ServerMessage) => {
+      this.spinner.hide();
+      if (serverMessage.status) {
+        console.log("borrado el mensaje")
+        this.mediaDataService.clearSelectedMediaFile()
+        this.mediaDataService.removeMediaFile(this.selectedMedia);
+        this.router.navigate(['/captureaudio']);
+      } else {
+        console.log("Servicio Estado: " + serverMessage.status);
+      }
+    }, e => {
+      this.spinner.hide()
+      window.alert(e)
+    });
+  }
 }
