@@ -30,40 +30,40 @@
           <audio #media [vgMedia]="media" id="myAudio" preload="auto" src="{{mp3Link}}">
           </audio>
       </vg-player>
-    
-      <br/>
-      <ul class="menu">
-        <li class="menuli">
-          Link: <a href="{{mp3Link}}">Right Click to Download</a>
-        </li>
-        <li class="menuli">
-          <button mat-raised-button="" 
-                class="mat-raised-button mat-button-base" type="button"
-                (click)="deleteMedia()" style="width: 120px"
-                tabindex="0">
-                <span class="mat-button-wrapper">Delete</span>
-                <div class="mat-button-ripple mat-ripple" matripple=""></div>
-                <div class="mat-button-focus-overlay"></div>
-          </button>
-        </li>
-        <li class="menuli">
-          <button mat-raised-button="" 
-                class="mat-raised-button mat-button-base" type="button"
-                (click)="goToUploadFile()" style="width: 120px"
-                tabindex="0">
-                <span class="mat-button-wrapper">Back</span>
-                <div class="mat-button-ripple mat-ripple" matripple=""></div>
-                <div class="mat-button-focus-overlay"></div>
-          </button>
-        </li>
-      </ul>
-      
-      <br/>
   </div>
+  <br/>
+  Transcripción
   <div id="transcript">
     <ul>
       <li *ngFor="let trans of formattedTranscript">
         {{trans['confidence']}}: {{trans['transcript']}}
+      </li>
+    </ul>
+  </div>
+  <div>
+    <ul class="menu">
+      <li class="menuli">
+        <a href="{{mp3Link}}">Descargar</a>
+      </li>
+      <li class="menuli">
+        <button (click)="deleteMedia()" style="width: 60px">
+              Eliminar
+        </button>
+      </li>
+      <li class="menuli">
+        <button (click)="goToUploadFile()" style="width: 60px" >
+              Regreso
+        </button>
+      </li>
+      <li class="menuli">
+        <button (click)="enviarGoogle()" style="width: 60px" >
+              Enviar a Google
+        </button>
+        <mat-select [(value)]="selected">
+          <mat-option *ngFor="let lang of languages" [value]="lang.value">
+            {{lang.viewValue}}
+          </mat-option>
+        </mat-select>
       </li>
     </ul>
   </div>

@@ -23,9 +23,14 @@ export class MediaUpdateService {
 
   eliminarMediaParaUsuarioConMediaId(userName: string, mediaId: string): Observable<ServerMessage> {
     console.log("Eliminar Servicio para Media" );
-    let userMediaUrl = this.deleteMediaUrl + mediaId + "/" + userName;
+    let userMediaUrl = this.deleteMediaUrl + "deleteMedia/" + mediaId + "/" + userName;
     return this.http.delete<ServerMessage> (userMediaUrl, this.httpOptions).pipe(retry(3), catchError(this.handleError));
+  }
 
+  enviaraGoogle(userName: string, mediaId: string, language: string){
+    let userMediaUrl = this.deleteMediaUrl + "requestGoogleTranscription/" + mediaId + "/" + userName + "/" + language;
+    console.log(userMediaUrl);
+    return this.http.post<ServerMessage> (userMediaUrl, this.httpOptions).pipe(retry(3), catchError(this.handleError));
   }
 
   private handleError(error:HttpErrorResponse) {

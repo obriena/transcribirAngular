@@ -20,6 +20,17 @@ export class ViewMediaWidgetComponent implements OnInit, AfterViewInit{
   formattedTranscript: [] = [];
   mp3Link: string;
   private showPlayer: boolean = false;
+  selected: string;
+  languages = [
+    {value: 'es-ES', viewValue: 'Spanish (Castilian)'},
+    {value: 'es-AR', viewValue: 'Spanish (Argentinian)'},
+    {value: 'es-BO', viewValue: 'Spanish (Bolivia)'},
+    {value: 'es-CL', viewValue: 'Spanish (Chilean)'},
+    {value: 'es-CO', viewValue: 'Spanish (Colombian)'},
+    {value: 'es-MX', viewValue: 'Spanish (Mexican)'},
+    {value: 'es-PE', viewValue: 'Spanish (Peruvian)'},
+  ];
+
   constructor(private httpClient: HttpClient,
               private mediaDataService: MediaDataStoreService,
               private updateMediaService: MediaUpdateService,
@@ -79,6 +90,19 @@ export class ViewMediaWidgetComponent implements OnInit, AfterViewInit{
       } else {
         console.log("Servicio Estado: " + serverMessage.status);
       }
+    }, e => {
+      this.spinner.hide()
+      window.alert(e)
+    });
+  }
+
+  enviarGoogle() {
+     this.spinner.show();
+     console.log(this.selected);
+     console.log(this.selectedMedia.mediaId)
+     console.log(this.selectedMedia.userId)
+     this.updateMediaService.enviaraGoogle(this.selectedMedia.userId, this.selectedMedia.mediaId, this.selected).subscribe((serverMessage: ServerMessage) => {
+      this.spinner.hide();
     }, e => {
       this.spinner.hide()
       window.alert(e)

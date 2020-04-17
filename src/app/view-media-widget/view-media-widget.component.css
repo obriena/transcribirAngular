@@ -2,6 +2,14 @@
     font-size: large;
 }
 
+#transcript {
+    height:300px;
+    width:420px;
+    border:1px solid #4e4e4e;
+    overflow:auto;
+    display: inline-block;
+}
+
 .menu {
     list-style-type: none;
     margin: 0;
@@ -10,4 +18,6 @@
 
 .menuli {
     display: inline;
+    padding-right: 20px;
+
 }

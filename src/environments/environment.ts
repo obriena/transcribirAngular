@@ -10,7 +10,7 @@ export const environment = {
   fileUploadService: "http://localhost:9080/transcribir/fileUpload",
   mediaService: "http://localhost:9080/transcribir/media/findAllForUser/",
   playMediaService: "http://localhost:9080/transcribir/media/playFileById/",
-  updateMediaService: "http://localhost:9080/transcribir/mediaUpdate/deleteMedia/"
+  updateMediaService: "http://localhost:9080/transcribir/mediaUpdate/",
   // loginService: "https://transcribirservices.herokuapp.com/transcribir/authenticate",
   // registrationService: "https://transcribirservices.herokuapp.com/transcribir/register",
   // fileUploadService: "https://transcribirservices.herokuapp.com/transcribir/fileUpload",
