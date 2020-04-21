@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MediaDataStoreService } from '../media-data-store.service';
 import { MediaUpdateService } from '../media-update.service';
+import { RetrieveMediaService } from '../retrieve-media.service';
 import { Media } from '../models/media';
 import { Router } from '@angular/router';
 import { environment } from "../../environments/environment";
@@ -17,10 +18,13 @@ import { ServerMessage } from '../models/serverMessage';
 
 export class ViewMediaWidgetComponent implements OnInit, AfterViewInit{
   selectedMedia: Media;
-  formattedTranscript: [] = [];
+  tabNameList: string[] = [];
+  transcripts: any[] = [];
+  trans: string[] = [];
   mp3Link: string;
   private showPlayer: boolean = false;
   selected: string;
+
   languages = [
     {value: 'es-ES', viewValue: 'Spanish (Castilian)'},
     {value: 'es-AR', viewValue: 'Spanish (Argentinian)'},
@@ -34,6 +38,7 @@ export class ViewMediaWidgetComponent implements OnInit, AfterViewInit{
   constructor(private httpClient: HttpClient,
               private mediaDataService: MediaDataStoreService,
               private updateMediaService: MediaUpdateService,
+              private retrieveMediaService: RetrieveMediaService,
               private router: Router,
               private spinner: NgxSpinnerService) {
     
@@ -44,27 +49,52 @@ export class ViewMediaWidgetComponent implements OnInit, AfterViewInit{
     selectedMediaSubject.subscribe((files: Media[])=>{
 
       if (files.length > 0) {
-        this.formattedTranscript = [];
+        this.spinner.show();
+
         this.selectedMedia = files[files.length -1];
 
         this.mp3Link = environment.playMediaService + this.selectedMedia.mediaId + "/" + this.selectedMedia.userId;
+        console.log("Media Link: " + this.mp3Link);   
        
-        console.log("Media Link: " + this.mp3Link);        
-        let transcription = JSON.parse(this.selectedMedia.transcription);
-        let results:[] = transcription['results'];
-
-        if (results){
-          for (let index = 0; index < results.length; index++) {
-            let alts:[] = results[index]['alternatives'];
-            for (let a = 0; a <alts.length; a++ ){
-              console.log(alts[a]['confidence'] + ": " + alts[a]['transcript']);
-              this.formattedTranscript.push(alts[a]);
+        this.retrieveMediaService.retrieveTranscriptForMediaWithUserId(this.selectedMedia.mediaId, this.selectedMedia.userId).subscribe((serverMessage: ServerMessage) => {
+          this.spinner.hide();
+          if (serverMessage.status) {
+            let payload:[] = serverMessage.payload;
+            this.tabNameList.length = 0;
+            this.transcripts.length = 0;
+            for (let index = 0; index < payload.length; index++) {
+              let name = payload[index]['source'] + " " + payload[index]['language'];
+              this.tabNameList.push(name);
+              let stringObject = payload[index]['transcription'];  //string
+              // let resultObj = JSON.parse(stringObject);
+              // this.transcripts = resultObj['results'];
+              this.transcripts.push(JSON.parse(stringObject));
+              console.log("loaded " + this.transcripts.length);
             }
           }
-        }
-
+        }, e => {
+          this.spinner.hide()
+          window.alert(e)
+        });
       }
     });
+  }
+
+  updateTranscript(selectedTranscript: number){
+    console.log("selected index: " + selectedTranscript);
+    this.trans.length = 0;
+
+    console.log("Number of transcripts: " + this.transcripts.length);
+
+    let aTranscript = this.transcripts[selectedTranscript]['results'];
+    console.log("Sie of selected transcript: " + aTranscript.length);
+    for (let index = 0; index < aTranscript.length; index++) {
+      let text = "confianza: " + aTranscript[index]['alternatives'][0]['confidence'] + " " + aTranscript[index]['alternatives'][0]['transcript'];
+      this.trans.push(text)
+    }
+    
+      
+    console.log("Size of list: " + this.trans.length);
   }
 
   ngAfterViewInit() {
@@ -95,6 +125,7 @@ export class ViewMediaWidgetComponent implements OnInit, AfterViewInit{
       window.alert(e)
     });
   }
+
 
   enviarGoogle() {
      this.spinner.show();

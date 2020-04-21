@@ -32,11 +32,19 @@
       </vg-player>
   </div>
   <br/>
+  <ul class="menu">
+    <li *ngFor="let tabName of tabNameList; index as i" class="menuli">
+      <button (click)="updateTranscript(i)" style="width: 180px" >
+        {{tabName}}
+      </button>
+    </li>
+  </ul>
+  <br/>
   Transcripción
   <div id="transcript">
     <ul>
-      <li *ngFor="let trans of formattedTranscript">
-        {{trans['confidence']}}: {{trans['transcript']}}
+      <li *ngFor="let aTrans of trans">
+        {{aTrans}}
       </li>
     </ul>
   </div>

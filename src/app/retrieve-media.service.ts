@@ -12,6 +12,8 @@ import { retry, catchError } from 'rxjs/operators';
 })
 export class RetrieveMediaService {
   mediaRetrievalUrl: string;
+  transcriptUrl: string;
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json'
@@ -20,6 +22,13 @@ export class RetrieveMediaService {
 
   constructor(private http: HttpClient) { 
     this.mediaRetrievalUrl = environment.mediaService;
+    this.transcriptUrl = environment.retrieveTranscriptService;
+  }
+
+  retrieveTranscriptForMediaWithUserId(mediaId: string, userId: string): Observable <ServerMessage> {
+    console.log("Retrieve Transcript Service" );
+    let transcriptUrl = this.transcriptUrl + mediaId + "/" + userId;
+    return this.http.get<ServerMessage> (transcriptUrl, this.httpOptions).pipe(retry(3), catchError(this.handleError));
   }
 
   retrieveMediaForUser(userName: string): Observable<ServerMessage> {
